@@ -1,0 +1,77 @@
+{
+    "resources": {
+  
+      "identity": {
+        "type": "project.v0",
+        "path": "../Services/Identity/Identity.csproj",
+        "env": {
+          "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
+          "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true",
+          "OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY": "in_memory",
+          "ASPNETCORE_FORWARDEDHEADERS_ENABLED": "true"
+        },
+        "bindings": {
+          "http": {
+            "scheme": "http",
+            "protocol": "tcp",
+            "transport": "http"
+          },
+          "https": {
+            "scheme": "https",
+            "protocol": "tcp",
+            "transport": "http"
+          }
+        }
+      },
+  
+      "todo": {
+        "type": "project.v0",
+        "path": "../Services/Todo/Todo.csproj",
+        "env": {
+          "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
+          "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true",
+          "OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY": "in_memory",
+          "ASPNETCORE_FORWARDEDHEADERS_ENABLED": "true"
+        },
+        "bindings": {
+          "http": {
+            "scheme": "http",
+            "protocol": "tcp",
+            "transport": "http"
+          },
+          "https": {
+            "scheme": "https",
+            "protocol": "tcp",
+            "transport": "http"
+          }
+        }
+      },
+  
+     
+      "boludertodo": {
+        "type": "dockerfile.v0",
+        "path": "../Frontends/bolunder-todo/Dockerfile",
+        "context": "../Frontends/bolunder-todo",
+        "env": {
+          "NODE_ENV": "production",
+          "services__identity__http__0": "{identity.bindings.http.url}",
+          "services__identity__https__0": "{identity.bindings.https.url}",
+         
+          "services__todo__http__0": "{todo.bindings.http.url}",
+          "services__todo__https__0": "{todo.bindings.https.url}",
+  
+          "PORT": "{boludertodo.bindings.http.targetPort}"
+        },
+        "bindings": {
+          "http": {
+            "scheme": "http",
+            "protocol": "tcp",
+            "transport": "http",
+            "targetPort": 8000,
+            "external": true
+          }
+        }
+      }
+    }
+  }
+  
