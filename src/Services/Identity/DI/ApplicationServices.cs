@@ -7,7 +7,7 @@ internal static class Extensions
     {
         var configuration = builder.Configuration;
         var services = builder.Services;
-        builder.AddServicesWritersLogger(builder.Configuration);
+        builder.AddServicesWritersLogger();
 
         var connectionString = configuration.GetConnectionString("identitydb")
            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -22,7 +22,7 @@ internal static class Extensions
         builder.Services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
         // Add the authentication services to DI
-        services.AddIdentity<ApplicationUser, UserType>()
+        services.AddIdentityCore<ApplicationUser>()
            .AddEntityFrameworkStores<IdentityApplicationDbContext>()
            .AddDefaultTokenProviders();
 

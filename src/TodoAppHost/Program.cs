@@ -17,24 +17,27 @@ var todoResourceApi = builder.AddProject<Projects.Todo>("todo-resource-api");
 todoResourceApi
 .WithReference(tododb);
 
-var TodoAppApp = builder.AddNpmApp("TodoApp", "../Frontends/bolunder-todo");
+var TodoAppApp = builder.AddNpmApp("bolundertodo", "../Frontends/todoapp-web");
+var IdentityWeb = builder.AddNpmApp("identity-web", "../Frontends/identity-web");
 
 TodoAppApp
 .WithHttpEndpoint(env: "PORT")
 .WithExternalHttpEndpoints()
 .PublishAsDockerFile();
 
+IdentityWeb
+.WithHttpEndpoint(env: "PORT")
+.WithExternalHttpEndpoints()
+.PublishAsDockerFile();
+
+
 identityServer
 .WithReference(identitydb)
 .WithReference(todoResourceApi)
 .WithReference(seq)
 .WithReference(TodoAppApp)
-
-
-
+.WithReference(IdentityWeb)
+.WaitFor(postgres)
 .WithExternalHttpEndpoints();
-
-
-
 
 await builder.Build().RunAsync();

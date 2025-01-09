@@ -47,11 +47,10 @@
         }
       },
   
-     
-      "boludertodo": {
+      "bolundertodo": {
         "type": "dockerfile.v0",
-        "path": "../Frontends/bolunder-todo/Dockerfile",
-        "context": "../Frontends/bolunder-todo",
+        "path": "../Frontends/todoapp-web/Dockerfile",
+        "context": "../Frontends/todoapp-web",
         "env": {
           "NODE_ENV": "production",
           "services__identity__http__0": "{identity.bindings.http.url}",
@@ -60,7 +59,32 @@
           "services__todo__http__0": "{todo.bindings.http.url}",
           "services__todo__https__0": "{todo.bindings.https.url}",
   
-          "PORT": "{boludertodo.bindings.http.targetPort}"
+          "PORT": "{bolundertodo.bindings.http.targetPort}"
+        },
+        "bindings": {
+          "http": {
+            "scheme": "http",
+            "protocol": "tcp",
+            "transport": "http",
+            "targetPort": 8000,
+            "external": true
+          }
+        }
+      },
+
+      "identity-web": {
+        "type": "dockerfile.v0",
+        "path": "../Frontends/todoapp-web/Dockerfile",
+        "context": "../Frontends/todoapp-web",
+        "env": {
+          "NODE_ENV": "production",
+          "services__identity__http__0": "{identity.bindings.http.url}",
+          "services__identity__https__0": "{identity.bindings.https.url}",
+         
+          "services__todo__http__0": "{todo.bindings.http.url}",
+          "services__todo__https__0": "{todo.bindings.https.url}",
+  
+          "PORT": "{identity-web.bindings.http.targetPort}"
         },
         "bindings": {
           "http": {
@@ -72,6 +96,7 @@
           }
         }
       }
+
     }
   }
   

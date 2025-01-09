@@ -3,12 +3,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServicesWritersLogger();
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
-
-builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddScoped<IdentityUserAccessor>();
-builder.Services.AddScoped<IdentityRedirectManager>();
 
 builder.AddApplicationServices();
 
@@ -36,14 +30,6 @@ else
     app.UseHsts();
 }
 
-
-
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();
-app.UseAntiforgery();
-
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
-
-await app.RunAsync();
+ app.Run();
