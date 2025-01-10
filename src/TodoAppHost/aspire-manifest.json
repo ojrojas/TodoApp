@@ -74,8 +74,8 @@
 
       "identity-web": {
         "type": "dockerfile.v0",
-        "path": "../Frontends/todoapp-web/Dockerfile",
-        "context": "../Frontends/todoapp-web",
+        "path": "../Frontends/identity-web/Dockerfile",
+        "context": "../Frontends/identity-web",
         "env": {
           "NODE_ENV": "production",
           "services__identity__http__0": "{identity.bindings.http.url}",
@@ -85,6 +85,31 @@
           "services__todo__https__0": "{todo.bindings.https.url}",
   
           "PORT": "{identity-web.bindings.http.targetPort}"
+        },
+        "bindings": {
+          "http": {
+            "scheme": "http",
+            "protocol": "tcp",
+            "transport": "http",
+            "targetPort": 8000,
+            "external": true
+          }
+        }
+      },
+
+      "master-web": {
+        "type": "dockerfile.v0",
+        "path": "../Frontends/master-web/Dockerfile",
+        "context": "../Frontends/master-web",
+        "env": {
+          "NODE_ENV": "production",
+          "services__identity__http__0": "{identity.bindings.http.url}",
+          "services__identity__https__0": "{identity.bindings.https.url}",
+         
+          "services__todo__http__0": "{todo.bindings.http.url}",
+          "services__todo__https__0": "{todo.bindings.https.url}",
+  
+          "PORT": "{master-web.bindings.http.targetPort}"
         },
         "bindings": {
           "http": {

@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+src/Frontends/master-web/.next
+src/Frontends/todo-web/dist
+src/Frontends/identity-web/dist

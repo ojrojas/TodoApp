@@ -1,6 +1,6 @@
 namespace TodoApp.Services.Identity.Data;
 
-public class IdentityApplicationDbContext : IdentityDbContext<ApplicationUser>
+public class IdentityApplicationDbContext : IdentityDbContext<ApplicationUser,RoleUser, Guid>
 {
     public IdentityApplicationDbContext(DbContextOptions<IdentityApplicationDbContext> options) : base(options)
     {
